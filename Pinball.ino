@@ -13,6 +13,8 @@ int duration = 500;  // 500 miliseconds
 const int BTN_POINTS = 8;
 const int BTN_PLAYER = 7;
 
+const int LED_POINTS = 2;
+
 // String Consts
 const String PLAYER_1 = "Player 1";
 const String PLAYER_2 = "Player 2";
@@ -53,6 +55,7 @@ void setup()
   // Define pins
   pinMode(BTN_POINTS, INPUT_PULLUP);  
   pinMode(BTN_PLAYER, INPUT_PULLUP); 
+  pinMode(LED_POINTS, OUTPUT);
 
   playStartSound();
 }
@@ -116,6 +119,8 @@ void btnPointsListener(){
 
     // Add Points
     playPointsSound();
+    // score();
+    // led();
     if(isP1 == true){
         pointsP1 = pointsP1 + 10;
     } else {
@@ -171,6 +176,37 @@ void btnPlayerListner(){
   
   // save the the last state
   btnPlayerLastState = btnPlayerCurrentState;
+}
+
+void flashLcd() {
+  lcd.noBacklight();
+  delay(100);
+  lcd.backlight();
+}
+
+void flashDisplay() {
+  lcd.noDisplay();
+  delay(200);
+  lcd.display();
+}
+
+void score() {
+  lcd.clear();
+  // Set the cursor
+  lcd.setCursor(0,0);
+
+    // Print
+    lcd.print("**** SCORE ****");
+    lcd.setCursor(0,1);
+    lcd.print("***** +10 *****");
+    isPlayerChange = true;
+    delay(300);
+}
+
+void led() {
+    digitalWrite(LED_POINTS, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(1000);                      // wait for a second
+  digitalWrite(LED_POINTS, LOW);   // turn the LED off by making the voltage LOW
 }
 
 void playStartSound(){
