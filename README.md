@@ -1,2 +1,2 @@
-# pinball
-Adruino pinball app
+# Arduino
+Arduino Repo for tests and examples
